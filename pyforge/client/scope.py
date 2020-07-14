@@ -9,10 +9,29 @@
 # You should have received a copy of the GNU General Public License along with this program. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 
 
-
-class ForgeScope():
+class Scope():
 
     """Scope options for access tokens"""
     
+    OPTIONS = {'userProfileRead': 'user-profile:read', \
+                'userRead': 'user:read', \
+                'userWrite': 'user:write', \
+                'viewablesRead': 'viewables:read', \
+                'dataRead': 'data:read', \
+                'dataWrite': 'data:write', \
+                'dataCreate': 'data:create', \
+                'dataSearch': 'data:search', \
+                'bucketCreate': 'bucket:create', \
+                'bucketRead': 'bucket:read', \
+                'bucketUpdate': 'bucket:update', \
+                'bucketDelete': 'bucket:delete', \
+                'codeAll': 'code:all', \
+                'accountRead': 'account:read', \
+                'accountWrite': 'account:write'
+                }
+
+    #@staticmethod    
+    #def construct_scope_list():
+
     
 

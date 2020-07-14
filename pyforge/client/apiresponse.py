@@ -8,23 +8,26 @@
 
 # You should have received a copy of the GNU General Public License along with this program. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 
+from typing import Dict
 import requests
+import json
 
-class TwoLeggedApi():
+class ApiResponse():
 
-    """Simple Authentication without user login"""
-       
-    def __init__(self, cliend_id, cliend_secret, scope):
+    """Class for manage the API Response"""
+    
+    def __init__(self, status_code: int, headers:str, body: Dict[str, str]):
+                
+        self.status_code = status_code
+        self.headers = headers
+        self.body = body
+
+
+
+
+
         
-        self.url = 'https://developer.api.autodesk.com/authentication/v1/authenticate'
-        self.data = {'client_id': cliend_id, 'client_secret': cliend_secret, 'grant_type': 'client_credentials', 'scope': scope}
-        self.headers = {'Content-Type': 'application/x-www-form-urlencoded'}
 
-    def request(self):
-        response = requests.request('POST', url, data=self.data, headers=self.headers)
+    
 
-        if response.status_code == 200:
-            return response
         
-        else:
-            return "Error {}".format(response.status_code)

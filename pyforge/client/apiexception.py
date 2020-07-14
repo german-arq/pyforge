@@ -8,12 +8,24 @@
 
 # You should have received a copy of the GNU General Public License along with this program. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 
-class Hubs()
-    
-    """sumary_line"""
-    
-    def __init__()
+from typing import Dict
+import requests
+import json
 
-        return Hubs
+class ApiException():
+
+    """Class for manage Errors in the API Responde"""
+    
+    def __init__(self, error_code: int, error_content: Dict[str, str]):
+                
+        self.error_code = error_code
+        self.error_content = error_content
+
+
+
+
+        
 
     
+
+        

@@ -7,36 +7,42 @@
 # This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 # You should have received a copy of the GNU General Public License along with this program. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
-
+from __future__ import annotations
 from typing import Dict
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from .configuration import Configuration
+
 import requests
 import json
-
-from configuration import Configuration
+# from .apiresponse import ApiResponse
+# from .apiexception import ApiException
 
 class ApiClient():
 
     """Class for making the HTTP calls to the Forge API Backend"""
     
-    def __init__(self, method, configuration: Configuration, base_url: str = None, local_url: str = "", headers: Dict = None, params: Dict = None, data: Dict = None):
+    def __init__(self, base_url: str, configuration: Configuration):
+                
+        self.base_url = base_url
+        self.configuration = configuration     
 
-        self.method = method
-        self.configuration = configuration
-        if base_url:
-            self.base_url = base_url
-        else:
-            self.base_url = "https://developer.api.autodesk.com/"
-        self.local_url = local_url
-        self.headers = {'Content-Type': 'application', 'Authorization': 'Bearer {0}'.format(self.configuration.access_token)} 
-        self.headers.update(headers) 
-        self.params = {'scope': 'account:read', 'grant_type': 'client_credentials'}
-        self.params.update(params)
-        self.data = data            
-        self.endpoint_url = base_url + local_url
+    def call_api(self, method, local_url: str = "", headers: Dict = None, params: Dict = None, data: Dict = None):
 
-    def request(self):
-        response = requests.request(self.method, self.endpoint_url, params=self.params, data=self.data, headers=self.headers)
+        endpoint_url = self.base_url + local_url  
+
+        response = requests.request(method, endpoint_url, params=params, data=data, headers=headers)
+
         return response
+        
+
+        # if str(r.status_code)[0] == '2':
+        #     api_response = ApiResponse(r.status_code, r.headers, r.json()['data'])       
+            
+        # else:
+        #     api_response = ApiException(r.status_code, r.json())
+        
+        
 
 
 
